@@ -36,3 +36,5 @@ INSERT INTO drs_favorite (type, reason) VALUES
 SELECT * FROM exercise_logs WHERE type IN (SELECT type FROM drs_favorite)
 
 
+/* check  the reason have any cardiovascular*/
+SELECT * FROM exercise_logs WHERE type IN(SELECT type FROM drs_favorite WHERE reason LIKE "%cardiovascular%");
