@@ -20,3 +20,19 @@ INSERT INTO exercise_logs (type,minutes,calories,heart_rate) VALUES
 
 /*Show only the outdoor activity type*/
 SELECT * FROM exercise_logs WHERE type IN("biking","tree climbing","rowing","hiking");
+
+
+CREATE TABLE drs_favorite(
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    type TEXT,
+    reason TEXT
+);
+
+INSERT INTO drs_favorite (type, reason) VALUES
+("biking", "Improve endurance and flexibility"),
+("hiking", "Increase cardiovascular health");
+
+/*Select all rows from exercise_logs table where the type is in drs_favorite table*/
+SELECT * FROM exercise_logs WHERE type IN (SELECT type FROM drs_favorite)
+
+
