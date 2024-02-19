@@ -49,3 +49,31 @@ SELECT type, SUM(calories) AS total_calories FROM exercise_logs GROUP BY type HA
 
 /* count the type thats more than or equal 2*/
 SELECT type FROM exercise_logs GROUP BY type HAVING COUNT(*) >=2;
+
+
+/*max heart rate of a person is 220-age so count how many that are grether than max heart rate.*/
+SELECT COUNT(*) FROM exercise_logs WHERE heart_rate > 220-22;
+
+/*50-90% of max*/
+SELECT COUNT(*) FROM exercise_logs WHERE
+    heart_rate >= ROUND(0.50 *(220-22))
+    AND heart_rate <= ROUND(0.90*(220-22))
+
+
+/*When the heart_rate>90% of max than above target when the heart_rate > 50 of max then within target, otherwise below target*/
+SELECT type,heart_rate,
+    CASE
+        WHEN heart_rate > ROUND(0.90 *(220-22)) THEN "above target"
+        WHEN heart_rate > ROUND(0.50*(220-22)) THEN "within target"
+        ELSE "below target"
+    END "hr_zone"
+FROM exercise_logs;
+
+SELECT COUNT(*),
+    CASE
+        WHEN heart_rate > ROUND(0.90 *(220-22)) THEN "above target"
+        WHEN heart_rate > ROUND(0.50*(220-22)) THEN "within target"
+        ELSE "below target"
+    END "hr_zone"
+FROM exercise_logs
+GROUP BY hr_zone;
