@@ -38,3 +38,14 @@ SELECT * FROM exercise_logs WHERE type IN (SELECT type FROM drs_favorite)
 
 /* check  the reason have any cardiovascular*/
 SELECT * FROM exercise_logs WHERE type IN(SELECT type FROM drs_favorite WHERE reason LIKE "%cardiovascular%");
+
+
+/*calculate the sum of calories of each type and make the calories as a new coloumn total_calories*/
+
+SELECT type, SUM(calories) AS total_calories FROM exercise_logs GROUP BY type;
+
+/*filter inside the total_calories*/
+SELECT type, SUM(calories) AS total_calories FROM exercise_logs GROUP BY type HAVING total_calories > 80;
+
+/* count the type thats more than or equal 2*/
+SELECT type FROM exercise_logs GROUP BY type HAVING COUNT(*) >=2;
