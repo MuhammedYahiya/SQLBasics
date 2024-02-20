@@ -15,6 +15,12 @@ CREATE TABLE students_grade(
     grade INTEGER
 );
 
+CREATE TABLE students_projects(
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    student_id INTEGER,
+    title TEXT
+);
+
 INSERT INTO students(first_name,last_name,email,phone,birthdate) VALUES
 ("Peter","Rabbit","peter@gmail.com",55559999,"2002-06-24"),
 ("Alice","Wonderland","alice@gmail.com",55554444,"2002-04-16");
@@ -25,6 +31,9 @@ INSERT INTO students_grade (student_id,test,grade) VALUE
 (1,"Chemistry",85),
 (2,"Chemistry",95);
 
+
+INSERT INTO students_projects (student_id,title) VALUE
+(1,"calculator");
 
 /*Cross join*/
 SELECT * FROM students_grade,students; --just join the two tables
@@ -39,3 +48,8 @@ SELECT students.first_name,students.email,students_grade.test,students_grade.gra
     JOIN students_grade
     ON students.id = students_grade.student_id
     WHERE grade > 90;
+
+/*outer join - left outer join*/
+SELECT students.first_name, students.last_name, students_projects.title FROM students
+    LEFT OUTER JOIN students_projects
+    ON students.id = students_projects.student_id;
